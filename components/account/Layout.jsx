@@ -35,9 +35,9 @@ function Layout({ children }) {
                 <h2>HIS - Hệ thống quản lý y tế thông minh</h2>
                 <div className="text-center mt-4 font-italic">phân hệ báo cáo trực tuyến</div>
             </div>     
-            {//**  ----------------------- Nội dung chính ------------------------ */}       
-            {children}
             {/**  ----------------------- Nội dung chính ------------------------ */}       
+            {children}
+            {/** ----------------------- Nội dung chính ------------------------ */}
         </div>
     );
 }
