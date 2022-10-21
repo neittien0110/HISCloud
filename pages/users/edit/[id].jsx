@@ -20,7 +20,7 @@ function Edit({ id }) {
 
     return (
         <Layout>
-            <h1>Edit User</h1>
+            <h1>Thay đổi thông tin tài khoản</h1>
             {user ? <AddEdit user={user} /> : <Spinner /> }
         </Layout>
     );

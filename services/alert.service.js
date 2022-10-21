@@ -1,3 +1,6 @@
+/**
+ * Hiển thị các thông báo lên phía đầu của trang web trong thời gian ngắn
+ */
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

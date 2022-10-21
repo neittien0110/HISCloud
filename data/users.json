@@ -1,1 +1,11 @@
-[]
+[
+    {
+        "firstName": "Tiến",
+        "lastName": "Nguyễn Đức",
+        "username": "tiennd",
+        "hash": "$2a$10$.y5uyQTn52yUycvYbBQnpeKvAHB506MBWxXfpv4alYq6wMeZ0Nm0.",
+        "id": 1,
+        "dateCreated": "2022-10-21T14:23:16.755Z",
+        "dateUpdated": "2022-10-21T14:23:16.755Z"
+    }
+]
