@@ -14,8 +14,8 @@ function Login() {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().required('Username is required'),
-        password: Yup.string().required('Password is required')
+        username: Yup.string().required('Bắt buộc phải có'),
+        password: Yup.string().required('Bắt buộc phải có')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -36,24 +36,24 @@ function Login() {
     return (
         <Layout>
             <div className="card">
-                <h4 className="card-header">Login</h4>
+                <h4 className="card-header">Đăng nhập</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
-                            <label>Username</label>
+                            <label>Tài khoản</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
+                            <label>Mật khẩu</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         <button disabled={formState.isSubmitting} className="btn btn-primary">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
+                            Đăng nhập
                         </button>
-                        <Link href="/account/register" className="btn btn-link">Register</Link>
+                        <Link href="/account/register" className="btn btn-link">Đăng ký</Link>
                     </form>
                 </div>
             </div>

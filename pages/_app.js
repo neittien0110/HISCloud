@@ -50,15 +50,19 @@ function App({ Component, pageProps }) {
         }
     }
 
+    /**
+     *                          BÔ CỤC TOÀN TRANG WEB 
+     */
     return (
         <>
             <Head>
-                <title>Next.js 11 - User Registration and Login Example</title>
+                <title>HIS: báo cáo trực tuyến</title>
+                <link href="http://benhvientimhanoi.vn/upload/16521/20161109/favicon56.ico" rel="shortcut icon" type="image/x-icon" />
                 
                 {/* eslint-disable-next-line @next/next/no-css-tags */}
                 <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
             </Head>
-
+            {/* -----------------------------HEADETER---------------------------------- */}
             <div className={`app-container ${user ? 'bg-light' : ''}`}>
                 <Nav />
                 <Alert />
@@ -67,14 +71,14 @@ function App({ Component, pageProps }) {
                 }
             </div>
 
-            {/* credits */}
+            {/* -----------------------------FOOTER---------------------------------- */}
             <div className="text-center mt-4">
                 <p>
-                    <a href="https://jasonwatmore.com/post/2021/08/19/next-js-11-user-registration-and-login-tutorial-with-example-app" target="_top">Next.js 11 - User Registration and Login Tutorial with Example App</a>
+                    <a href="http://benhvientimhanoi.vn/" target="_blank">Website Bệnh viện Tim Hà Nội</a>
                 </p>
                 <p>
-                    <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
-                </p>
+                    Thực hiện: N T D, <a href="http://benhvientimhanoi.vn/gioi-thieu/khoi-van-phong/phong-cong-nghe-thong-tin" target="_blank"> phòng CNTT</a> 
+                </p>                
             </div>
         </>
     );
