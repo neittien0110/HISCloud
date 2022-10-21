@@ -36,6 +36,7 @@ function Nav() {
             <div class="container-fluid">
                 <div className="navbar-nav me-auto mb-10 mb-lg-10">
                     <NavLink href="/" exact className="nav-item nav-link">Trang chủ</NavLink>
+                    <NavLink href="/reports" exact className="nav-item nav-link">Báo cáo trực tuyến</NavLink>
                 </div>
                 <div className="navbar-nav">
                     <NavLink href="/users" className="nav-item nav-link">Quản lý tài khoản</NavLink>

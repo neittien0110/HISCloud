@@ -3,6 +3,9 @@ const fs = require('fs');
 // users in JSON file for simplicity, store in a db for production applications
 let users = require('data/users.json');
 
+/**
+ * Quản lý các tài khoản người dùng ở server-side
+ */
 export const usersRepo = {
     getAll: () => users,
     getById: id => users.find(x => x.id.toString() === id.toString()),
