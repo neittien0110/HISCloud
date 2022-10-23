@@ -29,7 +29,7 @@ function AddEdit(props) {
         password: Yup.string()
             .transform(x => x === '' ? undefined : x)
             .concat(isAddMode ? Yup.string().required('Bắt buộc phải có') : null)
-            .min(6, 'Mật khẩu phải có tối thiểu 6 kí tự.')
+            .min(4, 'Mật khẩu phải có tối thiểu 4 kí tự.')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 

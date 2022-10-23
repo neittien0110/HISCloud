@@ -4,9 +4,9 @@ import { apiHandler } from 'helpers/api';
 import { usersRepo, omit } from 'helpers/api';   // Quản lý thông tin tài khoản trong file data/users.json
  
 export default apiHandler({
-    get: getById,
-    put: update,
-    delete: _delete
+    get: getById,                   //khi nhận được http get có url là /users/[id] thì gọi hàm getById bên dưới    
+    put: update,                    //khi nhận được http put có url là /users/[id] thì gọi hàm update bên dưới
+    delete: _delete                 //khi nhận được http delete có url là /users/[id] thì gọi hàm _delete bên dưới
 });
 
 function getById(req, res) {

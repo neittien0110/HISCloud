@@ -74,10 +74,10 @@ function App({ Component, pageProps }) {
             {/* -----------------------------FOOTER---------------------------------- */}
             <div className="text-center mt-4">
                 <p>
-                    <a href="http://benhvientimhanoi.vn/" target="_blank">Website Bệnh viện Tim Hà Nội</a>
+                    <a href="http://benhvientimhanoi.vn/" target="_blank" rel="noreferrer">Website Bệnh viện Tim Hà Nội</a>
                 </p>
                 <p>
-                    Thực hiện: N T D, <a href="http://benhvientimhanoi.vn/gioi-thieu/khoi-van-phong/phong-cong-nghe-thong-tin" target="_blank"> phòng CNTT</a> 
+                    Thực hiện: N T D, <a href="http://benhvientimhanoi.vn/gioi-thieu/khoi-van-phong/phong-cong-nghe-thong-tin" target="_blank" rel="noreferrer"> phòng CNTT</a> 
                 </p>                
             </div>
         </>

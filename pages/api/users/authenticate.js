@@ -11,18 +11,23 @@ export default apiHandler({
 });
 
 function authenticate(req, res) {
+    
+    // Trích lọc thông tin username và password từ gói http
     const { username, password } = req.body;
+
+    // Tìm user tương ứng
     const user = usersRepo.find(u => u.username === username);
 
-    // validate
+    // user và mật khẩu phải phù hợp
     if (!(user && bcrypt.compareSync(password, user.hash))) {
-        throw 'Username or password is incorrect';
+        throw 'Tài khoản hoặc mật khẩu không đúng';
     }
 
-    // create a jwt token that is valid for 7 days
+    // Tạo jwt token có thời hạn trong 7 ngày
     const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, { expiresIn: '7d' });
+    console.log(token)
 
-    // return basic user details and token
+    // trả về thông tin người dùng
     return res.status(200).json({
         id: user.id,
         username: user.username,

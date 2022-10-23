@@ -26,7 +26,7 @@ function Register() {
             .required('Bắt buộc phải có'),
         password: Yup.string()
             .required('Bắt buộc phải có')
-            .min(6, 'Mật khẩu phải gồm ít nhất 6 kí tự.')
+            .min(4, 'Mật khẩu phải gồm ít nhất 4 kí tự.')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 

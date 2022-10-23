@@ -1,9 +1,11 @@
 import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();  /** Đọc thông số cấu hình ở file next.config.js */
 
 import { userService } from 'services';
 
-const { publicRuntimeConfig } = getConfig();
-
+/**
+ * Các HTTP Method truy cập vào máy chủ WebAPI
+ */
 export const fetchWrapper = {
     get,
     post,
@@ -11,49 +13,87 @@ export const fetchWrapper = {
     delete: _delete
 };
 
+/**
+ * Gửi HTTP GET tới server
+ * @param {*} url       URL phía máy chủ
+ * @description  Tự động đính kèm token xác định phiên
+ * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ */
 function get(url) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader(url)
+        headers: authHeader(url)  // Bổ sung thông tin phiên
     };
     return fetch(url, requestOptions).then(handleResponse);
 }
 
+/**
+ * Gửi HTTP POST tới server
+ * @param {*} url       URL phía máy chủ
+ * @param {*} body      Nội dung gói tin 
+ * @description  tham số body sẽ được json hoá và gửi về server. Tự động đính kèm token xác định phiên
+ * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ */
 function post(url, body) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...authHeader(url) },
+        headers: { 'Content-Type': 'application/json', ...authHeader(url) },  // Bổ sung thông tin phiên
         credentials: 'include',
         body: JSON.stringify(body)
     };
     return fetch(url, requestOptions).then(handleResponse);
 }
 
+/**
+ * Gửi HTTP PUT tới server
+ * @param {*} url       URL phía máy chủ
+ * @param {*} body      Nội dung gói tin 
+ * @description  tham số body sẽ được json hoá và gửi về server. Tự động đính kèm token xác định phiên
+ * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @see   pasteimages/2022-10-22-17-37-36.png
+ */
 function put(url, body) {
+    console.log(`helper/fetch-wrapper.js/ put(`+url+`,`+ JSON.stringify(body)+")")
     const requestOptions = {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', ...authHeader(url) },
+        headers: { 'Content-Type': 'application/json', ...authHeader(url) }, // Bổ sung thông tin phiên
         body: JSON.stringify(body)
     };
+    // Gửi gói tin put và nhận đáp ứng
     return fetch(url, requestOptions).then(handleResponse);    
 }
 
-// prefixed with underscored because delete is a reserved word in javascript
+/**
+ * Gửi HTTP DELETE tới server
+ * @param {*} url       URL phía máy chủ, phải hợp lệ như đã cấu hình
+ * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @description  thong tin cần xoá đã nằm trong URL. Tự động đính kèm token xác định phiên
+ * @remark tên hơi lệch một chút vì delete là từ khoá trong javascript
+ */
 function _delete(url) {
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader(url)
+        headers: authHeader(url)        // Bổ sung thông tin phiên
     };
+    // Gửi gói tin delete và nhận đáp ứng
     return fetch(url, requestOptions).then(handleResponse);
 }
 
 // helper functions
-
+/**
+ * Bổ sung thông tin header chứa token của phiên cho các gói tin HTTP Request
+ * @param {*} url   phải hợp lệ như đã cấu hình
+ * @returns  Chuỗi kí tự token xác định phiên
+ * @example  Authorization: Bearer 939435935d9f924hj9g92n30202he0
+ */
 function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
+    // Xác nhận user đã đăng nhập và có token
     const isLoggedIn = user && user.token;
+    // Xác nhận url là phù hợp với cấu hình đã chỉ định
     const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+    // Kết hợp các điều kiện hợp lệ và trả về chuỗi token
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.token}` };
     } else {
@@ -61,8 +101,15 @@ function authHeader(url) {
     }
 }
 
+/**
+ * Hàm callback xử lý thô các thông tin mà WebAPI trả về cho browser
+ * @param {*} response      Kết quả nhận được từ webapi
+ * @returns dữ liệu dạng json
+ */
 function handleResponse(response) {
     return response.text().then(text => {
+        console.log(`helper/fetch-wrapper.js/ handleResponse()`)
+        console.log("   Nội dung http response từ webapi:" + text)
         const data = text && JSON.parse(text);
         
         if (!response.ok) {

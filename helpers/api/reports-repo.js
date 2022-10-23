@@ -4,11 +4,13 @@ const fs = require('fs');
 let reports = require('data/reports.json');
 
 /**
- * Quản lý các tài khoản người dùng ở server-side
+ * Quản lý các loại báo cáo ở server-side
+ * @see 
  */
 export const reportsRepo = {
+    /** Trả về danh sách các loại báo cáo đã lưu trong file cơ sở dữ liệu */
     getAll: () => reports,
-    getById: id => reports.find(x => x.id.toString() === id.toString()),
+    /** Tìm kiếm thông tin về loại báo cáo đã lưu trong file cơ sở dữ liệu */
+    getByCode: code => reports.find(x => x.code.toString() === code.toString()),
     find: x => reports.find(x),
-    execute: id => reports.find(x => x.id.toString() === id.toString()),
 };
