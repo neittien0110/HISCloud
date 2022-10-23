@@ -113,21 +113,32 @@ function authHeader(url) {
  * @returns Promiss chứa dữ liệu dạng json
  */
 function handleResponse(response) {
-    return response.text().then(text => {
-        console.log(`helper/fetch-wrapper.js/ handleResponse()`)
-        console.log("   Nội dung http response từ webapi:" + text)
-        const data = text && JSON.parse(text);
-        
-        if (!response.ok) {
-            if ([401, 403].includes(response.status) && userService.userValue) {
-                // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-                userService.logout();
+    console.log(`helper/fetch-wrapper.js/ handleResponse()`)
+    // Xác định loại dữ liệu nhận được
+    const Content_Type = response.headers.get("Content-Type");
+    console.log("  HTTP Reponse có Content-Type:" + Content_Type);
+    // Nếu dữ liệu trả về dạng file pdf thì để nguyên giá trị nhị phân
+    if (Content_Type == "application/pdf")
+    {
+        return response.blob();
+    } 
+    // Nếu dữ liệu trả về dạng file json thì chuyển đổi luôn
+    if (Content_Type.search("application/json")>=0)
+    {      
+        return response.text().then(text => {
+            // Phân tích dữ liệu nhận được thành dạng json luôn
+            const data = text && JSON.parse(text);
+            //console.log("   Nội dung http response từ webapi:" + text)        
+            if (!response.ok) {
+                if ([401, 403].includes(response.status) && userService.userValue) {
+                    // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
+                    userService.logout();
+                }
+
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
             }
-
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
-        }
-
-        return data;
-    });
+            return data;
+        });
+    };
 }

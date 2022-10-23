@@ -61,6 +61,20 @@ function Execute({ id }) {
             .catch(alertService.error);
     }
 
+    /**
+     * Hàm sự kiện khi nút xem pdf được bấm
+     * @returns 
+     */
+    function ViewPDF() {
+        console.log(`pages/reports/execute/[id].js/ ViewPDF(${id}`)
+        return reportService.getPDFByCode(id)
+            .then(() => {             
+                alertService.success('Xem PDF thành công.', { keepAfterRouteChange: true });
+            })
+            .catch(alertService.error);
+    }
+    
+
     return (
         <Layout>
             <div className="card">
@@ -87,14 +101,17 @@ function Execute({ id }) {
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Xuất báo cáo
                         </button>
-                        &nbsp;&nbsp;
-                        <button disabled={PDFStatus==0} className="btn btn-success">
-                            {/**  Hiện vòng tròn xoay ở nút bấm nếu trạng thái là đang xuất báo cáo */}
-                            {(PDFStatus==1) && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            { (PDFStatus==0)?"Chưa xuất báo cáo":(PDFStatus==1)?"Đang xuất":"Xem pdf"}
-                        </button>                        
                         <Link href="/reports/" className="btn btn-link">Bỏ qua</Link>
-                    </form>
+                    </form>                     
+                </div>
+            </div>
+            <br/>
+            <div className="card">
+                <h4 className="card-header">Báo cáo đã sẵn sàng</h4>
+                <div className="card-body">
+                    <button disabled={false} className="btn btn-success" onClick={ViewPDF}>
+                        Xem
+                    </button>    
                 </div>
             </div>
         </Layout>

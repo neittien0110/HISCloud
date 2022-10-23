@@ -1,25 +1,51 @@
 const bcrypt = require('bcryptjs');
 
-import { apiHandler } from 'helpers/api';
+import { apiHandler } from 'helpers/api';          // Quản lý chung toàn bộ các HTTP Request
 import { reportsRepo, omit } from 'helpers/api';   // Quản lý thông tin tài khoản trong file data/reports.json
 
 const { exec } = require('child_process');
 
+const fs = require('fs') 
+var path = require('path');     
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+
 /**
- * Các cổng WebAPI đáp ứng
+ * Khai báo các hàm callback để xử lý tinh các HTTP Method, sau khi đã được hàm @see apiHandler.js xử lý trước
  */
 export default apiHandler({
-    get: getById,                   //khi nhận được http get có url là /reports/[id] thì gọi hàm getById bên dưới    
+    get: getByCode,                   //khi nhận được http get có url là /reports/[id] thì gọi hàm getById bên dưới    
     put: execute,                    //khi nhận được http put có url là /reports/[id] thì gọi hàm execute bên dưới
 });
 
-function getById(req, res) {
-    const report = reportsRepo.getById(req.query.id);
+/**
+ * Trả về file pdf báo cáo
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+function getByCode(req, res) {
+    console.log("--------------Trả về báo cáo đã có sẵn------------------------")
+    
+    /** Mã loại báo cáo. Ví dụ MRS00272.*/
+    const reportCode = req.query.id;
+    process.stdout.write(`Loại báo cáo: ${reportCode} \n`)
+    
+    /** Xác định file pdf */
+    const filePath = `${publicRuntimeConfig.reportDocumentRoot}/${reportCode}.pdf`;    
+    process.stdout.write(`Đường dẫn: ${filePath} `)
+    if (!fs.existsSync(filePath)) {
+        process.stdout.write(` không tồn tại`);
+        return res.status(404).json({message:`${filePath} không tồn tại`});
+    }
 
-    if (!report) throw 'Không tìm thấy tài khoản';
-
-    // Trả về thông tin tài khoản, nhưng không bao gồm mật khẩu hash
-    return res.status(200).json({res:'tôi đang chạy. bạn đợi tí'});
+    /** Soạn gói tin và gửi về */
+    var data =fs.readFileSync(filePath);
+    res.setHeader('accept-ranges', 'bytes'); 
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline'); 
+    res.setHeader('filename',reportCode+".pdf");
+    return res.status(200).send(data)
 }
 
 /** 
