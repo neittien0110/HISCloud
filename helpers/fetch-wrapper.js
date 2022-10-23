@@ -16,14 +16,16 @@ export const fetchWrapper = {
 /**
  * Gửi HTTP GET tới server
  * @param {*} url       URL phía máy chủ
- * @description  Tự động đính kèm token xác định phiên
- * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @description  Gửi HTTP Request tới server, kèm theo token xác định phiên. 
+ *               Đợi kết quả trả về thì gọi hàm handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @returns Promiss chứa dữ liệu HTTP reponse ở dạng json
  */
 function get(url) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader(url)  // Bổ sung thông tin phiên
     };
+    //Gửi HTTP Request, đồng thời tiền xử lý HTTP Response.
     return fetch(url, requestOptions).then(handleResponse);
 }
 
@@ -31,8 +33,9 @@ function get(url) {
  * Gửi HTTP POST tới server
  * @param {*} url       URL phía máy chủ
  * @param {*} body      Nội dung gói tin 
- * @description  tham số body sẽ được json hoá và gửi về server. Tự động đính kèm token xác định phiên
- * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @description  Gửi HTTP Request tới server, kèm theo token xác định phiên. 
+ *               Đợi kết quả trả về thì gọi hàm handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @returns Promiss chứa dữ liệu HTTP reponse ở dạng json
  */
 function post(url, body) {
     const requestOptions = {
@@ -41,6 +44,7 @@ function post(url, body) {
         credentials: 'include',
         body: JSON.stringify(body)
     };
+    //Gửi HTTP Request, đồng thời tiền xử lý HTTP Response.
     return fetch(url, requestOptions).then(handleResponse);
 }
 
@@ -48,8 +52,9 @@ function post(url, body) {
  * Gửi HTTP PUT tới server
  * @param {*} url       URL phía máy chủ
  * @param {*} body      Nội dung gói tin 
- * @description  tham số body sẽ được json hoá và gửi về server. Tự động đính kèm token xác định phiên
- * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @description  Gửi HTTP Request tới server, kèm theo token xác định phiên. 
+ *               Đợi kết quả trả về thì gọi hàm handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @returns Promiss chứa dữ liệu HTTP reponse ở dạng json
  * @see   pasteimages/2022-10-22-17-37-36.png
  */
 function put(url, body) {
@@ -59,15 +64,16 @@ function put(url, body) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url) }, // Bổ sung thông tin phiên
         body: JSON.stringify(body)
     };
-    // Gửi gói tin put và nhận đáp ứng
+    //Gửi HTTP Request, đồng thời tiền xử lý HTTP Response.
     return fetch(url, requestOptions).then(handleResponse);    
 }
 
 /**
  * Gửi HTTP DELETE tới server
  * @param {*} url       URL phía máy chủ, phải hợp lệ như đã cấu hình
- * @returns hàm @see handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
- * @description  thong tin cần xoá đã nằm trong URL. Tự động đính kèm token xác định phiên
+ * @description  thong tin cần xoá đã nằm trong URL. Tự động đính kèm token xác định phiên. 
+ *               hàm handleResponse() xử lý thô kết quả, trước khi chuyển lại cho hàm khác
+ * @returns Promiss chứa dữ liệu HTTP reponse ở dạng json
  * @remark tên hơi lệch một chút vì delete là từ khoá trong javascript
  */
 function _delete(url) {
@@ -75,7 +81,7 @@ function _delete(url) {
         method: 'DELETE',
         headers: authHeader(url)        // Bổ sung thông tin phiên
     };
-    // Gửi gói tin delete và nhận đáp ứng
+    //Gửi HTTP Request, đồng thời tiền xử lý HTTP Response.
     return fetch(url, requestOptions).then(handleResponse);
 }
 
@@ -103,8 +109,8 @@ function authHeader(url) {
 
 /**
  * Hàm callback xử lý thô các thông tin mà WebAPI trả về cho browser
- * @param {*} response      Kết quả nhận được từ webapi
- * @returns dữ liệu dạng json
+ * @param {*} response      Kết quả nhận được từ server
+ * @returns Promiss chứa dữ liệu dạng json
  */
 function handleResponse(response) {
     return response.text().then(text => {

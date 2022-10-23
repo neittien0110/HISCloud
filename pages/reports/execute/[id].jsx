@@ -45,7 +45,7 @@ function Execute({ id }) {
 
     /**
      * Hàm sự kiện khi nút Thực hiện được bấm
-     * @param {*} reportParams
+     * @param {*} reportParams    (Tên bất kì) Tham số mặc định do hàm gọi handleSubmit luôn ném cho
      * @returns 
      */
     function onSubmit(reportParams) {
@@ -66,7 +66,7 @@ function Execute({ id }) {
             <div className="card">
                 <h4 className="card-header">Báo cáo {id}</h4>
                 <div className="card-body">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}> {/** handleSubmit sẽ tự động ném toàn bộ các tham số của form cho hàm onSubmit*/}
                         {/** {...register('fromDateTime')}  là quan trọng, sẽ tạo nên cấu trúc json của trường này và gửi về server */}
                         <div className="form-group">
                             <label>Từ ngày (*)</label>

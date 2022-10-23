@@ -4,7 +4,11 @@ const fs = require('fs');
 let users = require('data/users.json');
 
 /**
- * Quản lý các tài khoản người dùng ở server-side
+ * 
+ */
+/**
+ * Quản lý các tài khoản người dùng ở server-sidee. Chỉ thuần tuý là quản lý ổ lưu trữ trên server, chưa được phủ bởi lớp webapi
+ * @remark Xem các file định nghĩa WebAPI ở thư mục pages/api/users/..
  */
 export const usersRepo = {
     getAll: () => users,

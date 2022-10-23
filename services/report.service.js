@@ -16,6 +16,7 @@ export const reportService = {
 
 function getAll() {
     console.log(`${baseUrl}`)
+    //Gửi HTTP Request, đồng thời trả về kết quả dưới dạng json Promiss<json>
     return fetchWrapper.get(baseUrl);
 }
 
