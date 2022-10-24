@@ -14,7 +14,7 @@ const { publicRuntimeConfig } = getConfig();
  * Khai báo các hàm callback để xử lý tinh các HTTP Method, sau khi đã được hàm @see apiHandler.js xử lý trước
  */
 export default apiHandler({
-    get: getByCode,                   //khi nhận được http get có url là /reports/[id] thì gọi hàm getById bên dưới    
+    get: getFileByName,               //khi nhận được http get có url là /reports/[id] thì gọi hàm getFileByName bên dưới    
     put: execute,                    //khi nhận được http put có url là /reports/[id] thì gọi hàm execute bên dưới
 });
 
@@ -24,15 +24,15 @@ export default apiHandler({
  * @param {*} res 
  * @returns 
  */
-function getByCode(req, res) {
+function getFileByName(req, res) {
     console.log("--------------Trả về báo cáo đã có sẵn------------------------")
     
     /** Mã loại báo cáo. Ví dụ MRS00272.*/
-    const reportCode = req.query.id;
-    process.stdout.write(`Loại báo cáo: ${reportCode} \n`)
+    const FileName = req.query.id;
+    process.stdout.write(`Loại báo cáo: ${FileName} \n`)
     
     /** Xác định file pdf */
-    const filePath = `${publicRuntimeConfig.reportDocumentRoot}/${reportCode}.pdf`;    
+    const filePath = `${publicRuntimeConfig.reportDocumentRoot}/${FileName}`;    
     process.stdout.write(`Đường dẫn: ${filePath} `)
     if (!fs.existsSync(filePath)) {
         process.stdout.write(` không tồn tại`);
@@ -44,7 +44,7 @@ function getByCode(req, res) {
     res.setHeader('accept-ranges', 'bytes'); 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline'); 
-    res.setHeader('filename',reportCode+".pdf");
+    res.setHeader('filename',FileName);
     return res.status(200).send(data)
 }
 

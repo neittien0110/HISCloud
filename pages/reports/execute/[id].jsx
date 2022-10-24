@@ -1,3 +1,7 @@
+/**
+ * Chạy xuất báo cáo, đồng thời hiển thị toàn bộ các file pdf tương ứng đã có
+ * @see pasteimages/2022-10-24-11-48-38.png
+ */
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -43,6 +47,9 @@ function Execute({ id }) {
     // Trạng thái của nút PDF
     const [PDFStatus, setPDFStatus] = useState(0);
 
+    // Dữ liệu tạm, giả định có danh sách các file pdf ở server
+    const pdfs = [{code:{id}, filename:"MRS00272.pdf",fromDateTime:123, toDateTime:456}, {code:{id}, filename:"MRS00272_20221024_010203_20221024_040506.pdf",fromDateTime:123, toDateTime:456}];
+
     /**
      * Hàm sự kiện khi nút Thực hiện được bấm
      * @param {*} reportParams    (Tên bất kì) Tham số mặc định do hàm gọi handleSubmit luôn ném cho
@@ -65,9 +72,9 @@ function Execute({ id }) {
      * Hàm sự kiện khi nút xem pdf được bấm
      * @returns 
      */
-    function ViewPDF() {
-        console.log(`pages/reports/execute/[id].js/ ViewPDF(${id}`)
-        return reportService.getPDFByCode(id)
+    function ViewPDF(filename) {
+        console.log(`pages/reports/execute/[id].js/ ViewPDF(${filename}`)
+        return reportService.getPDFByFileName(filename)
             .then(() => {             
                 alertService.success('Xem PDF thành công.', { keepAfterRouteChange: true });
             })
@@ -108,11 +115,44 @@ function Execute({ id }) {
             <br/>
             <div className="card">
                 <h4 className="card-header">Báo cáo đã sẵn sàng</h4>
-                <div className="card-body">
-                    <button disabled={false} className="btn btn-success" onClick={ViewPDF}>
-                        Xem
-                    </button>    
-                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style={{ width: '30%' }}>File</th>
+                            <th style={{ width: '30%' }}>Từ ngày</th>
+                            <th style={{ width: '30%' }}>Tới ngày</th>
+                            <th style={{ width: '10%' }}>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pdfs && pdfs.map(report =>
+                            <tr key={report.filename}>
+                                <td>{report.filename}</td>
+                                <td>{report.fromDateTime}</td>
+                                <td>{report.toDateTime}</td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                <button disabled={false} className="btn btn-success" onClick={() => {ViewPDF(report.filename)}}>
+                                    Xem
+                                </button>                                        
+                                </td>
+                            </tr>
+                        )}
+                        {!pdfs &&
+                            <tr>
+                                <td colSpan="3">
+                                    <Spinner />
+                                </td>
+                            </tr>
+                        }
+                        {pdfs && !pdfs.length &&
+                            <tr>
+                                <td colSpan="3" className="text-center">
+                                    <div className="p-2">Không có báo cáo nào</div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </Layout>
     );

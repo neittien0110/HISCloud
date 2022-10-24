@@ -9,7 +9,7 @@ const baseUrl = `${publicRuntimeConfig.apiUrl}/reports`;
 
 export const reportService = {
     getAll,
-    getPDFByCode: getPDFByCode,                          // xem file pdf
+    getPDFByFileName: getPDFByFileName,                          // xem file pdf
     execute,                            //Thực thi xuất báo cáo
 };
 
@@ -25,12 +25,12 @@ function getAll() {
  * HTTP Response sẽ được:
  * 1. xử lý thô bởi hàm helper/fetch-wrapper.js/ handleResponse()
  * 2. xử lý tinh bởi hàm này.
- * @param {*} id 
+ * @param {*} FileName  Tên file pdf, không bao gồm đường dẫn, có đuôi.
  * @returns 
  */
-function getPDFByCode(id) {
+function getPDFByFileName(FileName) {
     // Gửi http request, đồng thời nhận blob dữ liệu về và xử lý tiếp
-    return fetchWrapper.get(`${baseUrl}/${id}`).then (pdf_blob => {
+    return fetchWrapper.get(`${baseUrl}/${FileName}`).then (pdf_blob => {
         // Tạo ra một URL trỏ tới file dữ liệu tạm, hoặc blob
         const fileURL = URL.createObjectURL(pdf_blob);
         // Mở file pdf tạm
