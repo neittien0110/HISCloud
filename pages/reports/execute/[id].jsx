@@ -12,12 +12,9 @@ import { Layout } from 'components/reports';
 import { Spinner } from 'components';
 
 
-import { reportService, alertService } from 'services';
+import { reportService, alertService, pdfService } from 'services';
 
-
-import { useState } from 'react'
-
-
+import { useState, useEffect } from 'react'
 
 //const util = require('util');
 //const exec_promiss = util.promisify(require('child_process').exec);
@@ -44,11 +41,14 @@ function Execute({ id }) {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors } = formState;
 
-    // Trạng thái của nút PDF
-    const [PDFStatus, setPDFStatus] = useState(0);
+    // Nếu có thay đỏi gì thì lấy loại toàn bộ thông tin pdf từ server
+    const [pdfs, setPDFList] = useState(null);    
+    useEffect(() => {
+        pdfService.getByName(id).then(filelist => setPDFList(filelist));
+    }, []);
 
     // Dữ liệu tạm, giả định có danh sách các file pdf ở server
-    const pdfs = [{code:{id}, filename:"MRS00272.pdf",fromDateTime:123, toDateTime:456}, {code:{id}, filename:"MRS00272_20221024_010203_20221024_040506.pdf",fromDateTime:123, toDateTime:456}];
+    //const pdfs = [{code:{id}, filename:"MRS00272.pdf",fromDateTime:123, toDateTime:456}, {code:{id}, filename:"MRS00272_20221024_010203_20221024_040506.pdf",fromDateTime:123, toDateTime:456}];
 
     /**
      * Hàm sự kiện khi nút Thực hiện được bấm
