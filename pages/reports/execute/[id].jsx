@@ -88,12 +88,12 @@ function Execute({ id }) {
                     <form onSubmit={handleSubmit(onSubmit)}> {/** handleSubmit sẽ tự động ném toàn bộ các tham số của form cho hàm onSubmit*/}
                         {/** {...register('fromDateTime')}  là quan trọng, sẽ tạo nên cấu trúc json của trường này và gửi về server */}
                         <div className="form-group">
-                            <label>Từ ngày (*)</label>
+                            <label>Từ ngày (dd mm yyyy hh mm ss) (*)</label>
                             <input name="fromDateTime" type="text" {...register('fromDateTime')} className={`form-control ${errors.fromDateTime ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.fromDateTime?.message}</div>
                         </div>
                         <div className="form-group">
-                            <label>Tới ngày (*)</label>
+                            <label>Tới ngày (dd mm yyyy hh mm ss) (*)</label>
                             <input name="toDateTime" type="text" {...register('toDateTime')} className={`form-control ${errors.toDateTime ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.toDateTime?.message}</div>
                         </div>

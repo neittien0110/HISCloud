@@ -72,7 +72,7 @@ function execute(req, res) {
     const { fromDateTime, toDateTime, name, ...params } = req.body;
     console.log("Tham số: " + fromDateTime + " --> " + toDateTime + " | " + name);
 
-    let cmd_output = RunApp(publicRuntimeConfig.cmdHISBot)
+    let cmd_output = RunApp(publicRuntimeConfig.cmdHISBot + " --baocao " + reportCode + " --tu " + fromDateTime  + " --den " + toDateTime)
     console.log("Ket quả: " + cmd_output)
     return res.status(200).json({code:reportCode, ver:"1", message:cmd_output});
 }
