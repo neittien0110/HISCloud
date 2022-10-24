@@ -39,11 +39,13 @@ function Nav() {
                     <NavLink href="/reports" exact className="nav-item nav-link">Báo cáo trực tuyến</NavLink>
                 </div>
                 <div className="navbar-nav">
-                    <NavLink href="/users" className="nav-item nav-link">Quản lý tài khoản</NavLink>
-                    <span style={{color:'white'}}> . </span>
+                    { /** Chỉ hiển thị quản lý tài khoản nếu có quyền admin */
+                        (userService.userValue?.role==0)?<NavLink href="/users" className="nav-item nav-link">Quản lý tài khoản</NavLink>:""
+                    }
+                    &nbsp;&nbsp; 
                     {/** Vừa hiển thị tài khoản, vừa kích hoạt việc kiểm tra trạng thái đăng nhập để gọi tới giao diện login */}
                     <NavLink href={"/users/edit/" + userService.userValue?.id} className="nav-item nav-link ">Chào {userService.userValue?.lastName + " " + userService.userValue?.firstName}</NavLink>
-                    <span style={{color:'white'}}> . </span>
+                    &nbsp;&nbsp;
                     <a onClick={logout} className="nav-item nav-link">Đăng xuất</a>                    
                 </div>
             </div>

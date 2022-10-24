@@ -25,7 +25,7 @@ function AddEdit(props) {
         lastName: Yup.string()
             .required('Bắt buộc phải có'),
         username: Yup.string()
-            .required('Bắt buộc phải có'),
+            .required('Bắt buộc phải có. 0=admin, 1=quản lý'),       
         password: Yup.string()
             .transform(x => x === '' ? undefined : x)
             .concat(isAddMode ? Yup.string().required('Bắt buộc phải có') : null)
@@ -95,6 +95,18 @@ function AddEdit(props) {
                     <div className="invalid-feedback">{errors.password?.message}</div>
                 </div>
             </div>
+            {
+                // Chỉ hiển thị nếu loại tài khoản là phù hợp
+                (userService.userValue?.role==0)?
+            <div className="form-row">
+                <div className="form-group col">
+                    <label>Loại tài khoản</label>
+                    <input name="role" type="text" {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.role?.message}</div>
+                </div>
+            </div>            
+            :""
+            }
             <div className="form-group">
                 <button type="submit" disabled={formState.isSubmitting} className="btn btn-primary mr-2">
                     {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}

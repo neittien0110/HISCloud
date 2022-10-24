@@ -1,10 +1,11 @@
 [
     {
         "firstName": "Tiến",
-        "lastName": "Nguyễn Đưc",
+        "lastName": "Nguyễn Đức",
         "username": "tiennd",
         "hash": "$2a$10$.y5uyQTn52yUycvYbBQnpeKvAHB506MBWxXfpv4alYq6wMeZ0Nm0.",
         "id": 1,
+        "role": 0,
         "dateCreated": "2022-10-21T14:23:16.755Z",
         "dateUpdated": "2022-10-21T14:23:16.755Z"
     },
@@ -14,6 +15,7 @@
         "username": "duyennt",
         "hash": "$2a$10$AqFFzV3YiZQVx7g7x6t0ZeLMRk8xw9cKpLsubn8bA6xmf6QFgAJaG",
         "id": 2,
+        "role": "0",
         "dateCreated": "2022-10-22T13:08:50.079Z",
         "dateUpdated": "2022-10-22T13:08:50.079Z"
     }

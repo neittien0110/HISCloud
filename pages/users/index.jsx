@@ -36,7 +36,8 @@ function Index() {
                     <tr>
                         <th style={{ width: '30%' }}>Tên</th>
                         <th style={{ width: '30%' }}>Họ đệm</th>
-                        <th style={{ width: '30%' }}>Tài khoản</th>
+                        <th style={{ width: '25%' }}>Tài khoản</th>
+                        <th style={{ width: '5%' }}>Loại</th>
                         <th style={{ width: '10%' }}></th>
                     </tr>
                 </thead>
@@ -46,6 +47,7 @@ function Index() {
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.username}</td>
+                            <td>{user.role}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                                 <Link href={`/users/edit/${user.id}`} className="btn btn-sm btn-primary mr-1">Sửa</Link>
                                 <button onClick={() => deleteUser(user.id)} className="btn btn-sm btn-danger btn-delete-user" disabled={user.isDeleting}>
