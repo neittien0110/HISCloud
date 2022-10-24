@@ -59,10 +59,8 @@ function Execute({ id }) {
         console.log("pages/reports/execute/[id].js/onSubmit("+ reportParams+")")
         console.log("    " + id)
         console.log("    " + JSON.stringify(reportParams))
-        setPDFStatus(1)
         return reportService.execute(id, reportParams)
             .then(() => {
-                setPDFStatus(2);                
                 alertService.success('Xuất báo cáo thành công.', { keepAfterRouteChange: true });
             })
             .catch(alertService.error);
@@ -115,23 +113,21 @@ function Execute({ id }) {
             <br/>
             <div className="card">
                 <h4 className="card-header">Báo cáo đã sẵn sàng</h4>
-                <table className="table table-striped">
+                <table className="table table-striped table-layout:fixed">
                     <thead>
                         <tr>
-                            <th style={{ width: '30%' }}>File</th>
                             <th style={{ width: '30%' }}>Từ ngày</th>
                             <th style={{ width: '30%' }}>Tới ngày</th>
                             <th style={{ width: '10%' }}>...</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {pdfs && pdfs.map(report =>
-                            <tr key={report.filename}>
-                                <td>{report.filename}</td>
-                                <td>{report.fromDateTime}</td>
-                                <td>{report.toDateTime}</td>
+                        {pdfs && pdfs.map(file =>
+                            <tr key={file.filename}>
+                                <td>{file.fromDateTime}</td>
+                                <td>{file.toDateTime}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                <button disabled={false} className="btn btn-success" onClick={() => {ViewPDF(report.filename)}}>
+                                <button disabled={false} className="btn btn-success" onClick={() => {ViewPDF(file.filename)}}>
                                     Xem
                                 </button>                                        
                                 </td>
