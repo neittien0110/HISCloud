@@ -1,9 +1,64 @@
 [
     {
         "code": "MRS00272",
-        "name": "Báo cáo vật tư",
+        "name": "Báo cáo tổng hợp doanh thu đối với đối tượng ngoại trú",
         "id": 1,
         "dateCreated": "2022-10-21T14:23:16.755Z",
         "dateUpdated": "2022-10-21T14:23:16.755Z"
+    },
+    {
+        "code": "MRS00250",
+        "name": "Báo cáo thống kê số Đơn thuốc ngoại trú",
+        "id": 2
+    } ,   
+    {
+        "code": "MRS00329",
+        "name": "Đề nghị thanh toán BHYT BN KCB ngoại trú C79 a không cần duyệt bảo hiểm",
+        "id": 3
+    } ,   
+    {
+        "code": "MRS00352",
+        "name": "Thống kê vật từ y tế thanh toán BHYT 19 (không cần duyệt BHYT)",
+        "id": 4
+    } ,    
+    {
+        "code": "MRS00476",
+        "name": "Báo cáo thống kê số BN được khám theo PK",
+        "id": 5
+    } ,    
+    {
+        "code": "MRS00473",
+        "name": "Báo cáo bệnh nhân được khám ngoại trú",
+        "id": 6
+    } ,    
+    {
+        "code": "MRS00541",
+        "name": "Sổ khám bệnh",
+        "id": 7
+    } ,    
+    {
+        "code": "MRS00039",
+        "name": "Sổ phẫu thuật mẫu",
+        "id": 8
+    } ,    
+    {
+        "code": "TKB00058",
+        "name": "Danh sách phẫu thuật",
+        "id": 9
+    } ,    
+    {
+        "code": "MRS00406",
+        "name": "Báo cáo dịch vụ kỹ thuật được chỉ định nhiều nhất",
+        "id": 10
+    } ,    
+    {
+        "code": "MRS00169",
+        "name": "Báo cáo số liệu chuyển tuyến",
+        "id": 11
+    } ,    
+    {
+        "code": "MRS00348",
+        "name": "Báo cáo bệnh nhân chưa thanh toán",
+        "id": 12
     }
 ]
