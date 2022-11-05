@@ -29,7 +29,7 @@ function Layout({ children }) {
             {/** -------------------- Logo của bệnh viện ---------------------------*/}
             <div className={"text-center mt-4"}>
                 &nbsp;
-                <img src='http://benhvientimhanoi.vn/upload/16521/20180523/logo-dd.png'/>
+                <img src='/assets/logo-dd.png'/>
                 <br/>
                 <br/>
                 <h2>HIS - Hệ thống quản lý y tế thông minh</h2>

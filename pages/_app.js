@@ -57,10 +57,10 @@ function App({ Component, pageProps }) {
         <>
             <Head>
                 <title>HIS: báo cáo trực tuyến</title>
-                <link href="http://benhvientimhanoi.vn/upload/16521/20161109/favicon56.ico" rel="shortcut icon" type="image/x-icon" />
+                <link href="/assets/favicon56.ico" rel="shortcut icon" type="image/x-icon" />
                 
                 {/* eslint-disable-next-line @next/next/no-css-tags */}
-                <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="/assets/bootstrap.min.css" rel="stylesheet" />
             </Head>
             {/* -----------------------------HEADETER---------------------------------- */}
             <div className={`app-container ${user ? 'bg-light' : ''}`}>
