@@ -16,6 +16,9 @@ function register(req, res) {
 
     // hash password
     user.hash = bcrypt.hashSync(password, 10);    
+    
+    // Loại tài khoản là chưa phân loại
+    user.role = -1;
 
     usersRepo.create(user);
     return res.status(200).json({});
